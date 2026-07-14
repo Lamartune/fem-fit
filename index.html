@@ -41,7 +41,7 @@
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;min-height:100dvh;overflow-x:hidden;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;overscroll-behavior-y:none}
 /* iOS çentik / safe-area desteği (standalone modda) */
-nav{padding-top:calc(15px + env(safe-area-inset-top))}
+nav{padding-top:calc(env(safe-area-inset-top) + 20px)}
 footer{padding-bottom:calc(40px + env(safe-area-inset-bottom))}
 @supports(padding:max(0px)){
   #hero{padding-left:max(44px,env(safe-area-inset-left));padding-right:max(44px,env(safe-area-inset-right))}
@@ -246,6 +246,47 @@ h1 em{font-style:italic;color:var(--rose)}
 @media(max-width:700px){
   .ptable{min-width:640px}
 }
+/* SETTINGS */
+.setgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}
+.setrow{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--brd)}
+.setinfo{flex:1;min-width:0}
+.setname{font-size:14.5px;font-weight:500;margin-bottom:3px}
+.setdesc{font-size:12px;color:var(--txt3);line-height:1.45}
+.toggle{position:relative;width:50px;height:29px;border-radius:100px;border:1px solid var(--brd2);background:var(--surf);cursor:pointer;flex-shrink:0;transition:all .25s;padding:0}
+.toggle .knob{position:absolute;top:2px;left:2px;width:23px;height:23px;border-radius:50%;background:var(--txt3);transition:all .25s}
+.toggle.on{background:linear-gradient(135deg,var(--rose),var(--plum));border-color:var(--rose)}
+.toggle.on .knob{left:23px;background:#fff}
+.setnote{font-size:12.5px;color:var(--txt3);line-height:1.55;margin-bottom:16px}
+.setbtn{width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:14px 16px;background:var(--surf);border:1px solid var(--brd);border-radius:13px;color:var(--txt);font-size:14.5px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;margin-bottom:11px;transition:all .2s;text-align:left}
+.setbtn:hover{border-color:var(--rose);background:var(--rose-d)}
+.setbtn .sb-sub{font-size:11.5px;color:var(--txt3);font-weight:400}
+.setbtn.ghost{background:transparent;align-items:center;flex-direction:row;justify-content:center}
+.setbtn.danger{background:transparent;border-color:rgba(240,100,120,.3);color:#ff7d95;align-items:center;flex-direction:row;justify-content:center}
+.setbtn.danger:hover{background:rgba(240,100,120,.1);border-color:#ff7d95}
+.setbtn.as-label{margin-bottom:11px}
+.setbtn:active{transform:scale(.98)}
+
+/* VISUAL EFFECTS */
+.fx-layer{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden}
+.fx-heart{position:absolute;font-size:22px;will-change:transform,opacity;animation:fxfloat 1.5s ease-out forwards}
+@keyframes fxfloat{
+  0%{opacity:0;transform:translateY(0) scale(.4) rotate(0deg)}
+  15%{opacity:1;transform:translateY(-20px) scale(1.1) rotate(-8deg)}
+  100%{opacity:0;transform:translateY(-180px) scale(.7) rotate(14deg)}
+}
+.ripple{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(240,158,197,.5),rgba(240,158,197,0) 70%);transform:translate(-50%,-50%) scale(0);pointer-events:none;animation:rip .55s ease-out forwards}
+@keyframes rip{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
+/* animated orbs when effects on */
+body.fx-on .orb1{animation:drift1 22s ease-in-out infinite alternate}
+body.fx-on .orb2{animation:drift2 26s ease-in-out infinite alternate}
+body.fx-on .orb3{animation:drift3 30s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(-50px,60px) scale(1.15)}}
+@keyframes drift2{to{transform:translate(70px,-40px) scale(1.1)}}
+@keyframes drift3{to{transform:translate(-40px,-30px) scale(1.2)}}
+@media(prefers-reduced-motion:reduce){
+  body.fx-on .orb1,body.fx-on .orb2,body.fx-on .orb3{animation:none}
+}
+
 footer{text-align:center;padding:40px;color:var(--txt3);font-size:13px;border-top:1px solid var(--brd);margin-top:60px}
 footer span{color:var(--rose)}
 
@@ -256,13 +297,13 @@ footer span{color:var(--rose)}
 }
 @media(max-width:820px){
   .wgrid{grid-template-columns:repeat(4,1fr)}
-  .tblocks,.ogrid,.ggrid{grid-template-columns:1fr}
+  .tblocks,.ogrid,.ggrid,.setgrid{grid-template-columns:1fr}
   .tblocks.solo{grid-template-columns:1fr}
   h1{font-size:38px}
   .sh h2{font-size:30px}
 }
 @media(max-width:680px){
-  nav{padding:12px 18px}
+  nav{padding-right:18px;padding-left:18px;padding-bottom:12px}
   .logo{font-size:18px}
   .nav-a{padding:6px 13px;font-size:12px}
   .wrap{padding:48px 18px}
@@ -327,6 +368,7 @@ footer span{color:var(--rose)}
     <a class="nav-a" href="#program">Program</a>
     <a class="nav-a" href="#olcum">Ölçümler</a>
     <a class="nav-a" href="#rehber">Rehber</a>
+    <a class="nav-a" href="#ayarlar">Ayarlar</a>
   </div>
 </nav>
 
@@ -547,6 +589,60 @@ footer span{color:var(--rose)}
 </div>
 </section>
 
+<!-- AYARLAR -->
+<section id="ayarlar">
+<div class="wrap" style="padding-top:40px">
+  <div class="sh">
+    <div class="ey">Kontrol Paneli</div>
+    <h2>Ayarlar & <em>Yedekleme</em></h2>
+    <p>Verilerini yedekle, Excel'e aktar, ses ve görüntü efektlerini yönet.</p>
+  </div>
+
+  <div class="setgrid">
+
+    <!-- EFEKTLER -->
+    <div class="ocard">
+      <div class="otit">Efektler</div>
+      <div class="setrow">
+        <div class="setinfo"><div class="setname">🔊 Ses Efektleri</div><div class="setdesc">Dokunma, kaydetme ve zamanlayıcı sesleri</div></div>
+        <button class="toggle" id="tg-sound" onclick="toggleSetting('sound')"><span class="knob"></span></button>
+      </div>
+      <div class="setrow">
+        <div class="setinfo"><div class="setname">✨ Görüntü Efektleri</div><div class="setdesc">Kalp animasyonları, dokunma dalgası, akan arka plan</div></div>
+        <button class="toggle" id="tg-effects" onclick="toggleSetting('effects')"><span class="knob"></span></button>
+      </div>
+      <div class="setrow">
+        <div class="setinfo"><div class="setname">📳 Titreşim</div><div class="setdesc">Dokunmada haptik geri bildirim (destekleyen cihazlarda)</div></div>
+        <button class="toggle" id="tg-haptics" onclick="toggleSetting('haptics')"><span class="knob"></span></button>
+      </div>
+      <button class="setbtn ghost" onclick="testEffects()">🎉 Efektleri Dene</button>
+    </div>
+
+    <!-- EXCEL EXPORT -->
+    <div class="ocard">
+      <div class="otit">Excel'e Aktar</div>
+      <div class="setnote">Dosyalar telefonuna .xls olarak iner; Excel, Numbers ve Google E-Tablolar açar. Türkçe karakterler korunur.</div>
+      <button class="setbtn" onclick="exportTodayExcel()">📅 Bugünkü Program <span class="sb-sub">Günlük</span></button>
+      <button class="setbtn" onclick="exportWeekExcel()">🗓️ Haftalık Program <span class="sb-sub">7 gün · sabah/akşam/gece</span></button>
+      <button class="setbtn" onclick="exportMeasurementsExcel()">📊 Ölçüm Geçmişi <span class="sb-sub">Tüm kayıtlar + WHR</span></button>
+    </div>
+
+    <!-- YEDEK -->
+    <div class="ocard">
+      <div class="otit">Yerel Yedek</div>
+      <div class="setnote">Tüm ölçümlerin ve ayarların tek bir yedek dosyasında. Telefon değiştirince ya da veri kaybına karşı sakla.</div>
+      <button class="setbtn" onclick="exportBackup()">💾 Yedek İndir <span class="sb-sub">.json dosyası</span></button>
+      <label class="setbtn as-label" for="import-file">📥 Yedeği Geri Yükle <span class="sb-sub">.json seç</span></label>
+      <input type="file" id="import-file" accept="application/json,.json" style="display:none" onchange="importBackup(event)">
+      <div class="setnote" style="margin-top:14px">Yedeği panoya kopyalamak istersen:</div>
+      <button class="setbtn ghost" onclick="copyBackup()">📋 Yedeği Panoya Kopyala</button>
+      <button class="setbtn danger" onclick="resetAllData()">🗑️ Tüm Verileri Sıfırla</button>
+    </div>
+
+  </div>
+</div>
+</section>
+
 </main>
 <footer>F<span>🖤</span> · Kişisel Fitness Rehberi</footer>
 
@@ -745,6 +841,7 @@ function renderProgram() {
 }
 
 function switchDay(key, cardEl, tabEl) {
+  sfx('tap'); haptic();
   // Update week grid active state
   document.querySelectorAll('.dcard').forEach((c,i)=>{
     c.classList.toggle('active', DAYS[i].key===key);
@@ -763,6 +860,7 @@ function switchDay(key, cardEl, tabEl) {
 
 function toggleEx(el) {
   el.classList.toggle('open');
+  sfx(el.classList.contains('open')?'open':'tap'); haptic();
 }
 
 // ─── TIMER ───────────────────────────────────────────────────────────────────
@@ -770,13 +868,16 @@ function toggleEx(el) {
 let timerSecs = 0, timerRunning = false, timerInterval = null;
 
 function setTimer(s) {
+  initAudio(); sfx('tap'); haptic();
   resetTimer();
   timerSecs = s;
   updateTimerDisplay();
 }
 
 function startTimer() {
+  initAudio();
   if(timerRunning || timerSecs===0) return;
+  sfx('start'); haptic();
   timerRunning = true;
   timerInterval = setInterval(()=>{
     if(timerSecs<=0){ clearInterval(timerInterval); timerRunning=false; alertDone(); return; }
@@ -806,6 +907,7 @@ function updateTimerDisplay() {
 }
 
 function alertDone() {
+  sfx('complete'); haptic(30); heartsBurst();
   const d = document.getElementById('tdisp');
   d.textContent = '✓ Bitti!';
   d.classList.add('green');
@@ -843,6 +945,7 @@ function saveMeasurement() {
   ['inp-kg','inp-bel','inp-kalca','inp-kol','inp-not'].forEach(id=>{ document.getElementById(id).value=''; });
 
   renderHistory();
+  sfx('success'); haptic(20); heartsBurst();
 }
 
 function deleteMeasurement(idx) {
@@ -896,6 +999,272 @@ function renderHistory() {
   }).join('');
 }
 
+// ─── AYARLAR & EFEKTLER & YEDEK ──────────────────────────────────────────────
+
+const DEFAULT_SETTINGS = { sound:true, effects:true, haptics:true };
+let settings = loadSettings();
+
+function loadSettings(){
+  try { return { ...DEFAULT_SETTINGS, ...JSON.parse(localStorage.getItem('femfit_settings')||'{}') }; }
+  catch(e){ return { ...DEFAULT_SETTINGS }; }
+}
+function persistSettings(){ localStorage.setItem('femfit_settings', JSON.stringify(settings)); }
+
+function applySettings(){
+  ['sound','effects','haptics'].forEach(k=>{
+    const t = document.getElementById('tg-'+k);
+    if(t) t.classList.toggle('on', !!settings[k]);
+  });
+  document.body.classList.toggle('fx-on', !!settings.effects);
+}
+
+function toggleSetting(key){
+  settings[key] = !settings[key];
+  persistSettings();
+  applySettings();
+  if(key==='sound' && settings.sound) initAudio();
+  sfx('toggle'); haptic();
+}
+
+// ─── SES MOTORU (Web Audio — iOS uyumlu) ─────────────────────────────────────
+let audioCtx = null, audioReady = false;
+
+function initAudio(){
+  try{
+    if(!audioCtx){
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if(!AC) return;
+      audioCtx = new AC();
+    }
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    // iOS kilidini açmak için sessiz bir buffer çal
+    if(!audioReady){
+      const b = audioCtx.createBuffer(1,1,22050);
+      const src = audioCtx.createBufferSource();
+      src.buffer = b; src.connect(audioCtx.destination); src.start(0);
+      audioReady = true;
+    }
+  }catch(e){}
+}
+
+function tone(freq, start, dur, type='sine', vol=0.14){
+  if(!audioCtx) return;
+  const t0 = audioCtx.currentTime + start;
+  const osc = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, t0);
+  g.gain.setValueAtTime(0.0001, t0);
+  g.gain.exponentialRampToValueAtTime(vol, t0+0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001, t0+dur);
+  osc.connect(g); g.connect(audioCtx.destination);
+  osc.start(t0); osc.stop(t0+dur+0.02);
+}
+
+function sfx(name){
+  if(!settings.sound) return;
+  if(!audioCtx) initAudio();
+  if(!audioCtx) return;
+  switch(name){
+    case 'tap':      tone(520,0,0.07,'sine',0.07); break;
+    case 'open':     tone(440,0,0.06,'triangle',0.08); tone(660,0.04,0.07,'sine',0.06); break;
+    case 'toggle':   tone(settings.sound?600:300,0,0.09,'triangle',0.1); break;
+    case 'start':    tone(392,0,0.08,'sine',0.1); tone(587,0.07,0.1,'sine',0.09); break;
+    case 'success':  tone(523,0,0.11,'sine',0.12); tone(659,0.1,0.11,'sine',0.12); tone(784,0.2,0.2,'sine',0.12); break;
+    case 'complete': tone(659,0,0.12,'sine',0.13); tone(880,0.12,0.14,'sine',0.13); tone(1047,0.28,0.3,'sine',0.12); break;
+    case 'export':   tone(659,0,0.09,'sine',0.11); tone(988,0.09,0.16,'sine',0.1); break;
+  }
+}
+
+// ─── HAPTİK ──────────────────────────────────────────────────────────────────
+function haptic(ms=10){
+  if(!settings.haptics) return;
+  if(navigator.vibrate){ try{ navigator.vibrate(ms); }catch(e){} }
+}
+
+// ─── GÖRSEL EFEKT: kalpler ───────────────────────────────────────────────────
+let fxLayer = null;
+function getFxLayer(){
+  if(!fxLayer){
+    fxLayer = document.createElement('div');
+    fxLayer.className = 'fx-layer';
+    document.body.appendChild(fxLayer);
+  }
+  return fxLayer;
+}
+function heartsBurst(x, y){
+  if(!settings.effects) return;
+  const layer = getFxLayer();
+  const cx = x ?? window.innerWidth/2;
+  const cy = y ?? window.innerHeight/2;
+  const glyphs = ['🖤','💖','✨','💗','🩷'];
+  const n = 12;
+  for(let i=0;i<n;i++){
+    const h = document.createElement('div');
+    h.className = 'fx-heart';
+    h.textContent = glyphs[i % glyphs.length];
+    const spread = (Math.random()-0.5)*160;
+    h.style.left = (cx + spread) + 'px';
+    h.style.top = cy + 'px';
+    h.style.fontSize = (16 + Math.random()*16) + 'px';
+    h.style.animationDelay = (Math.random()*0.15) + 's';
+    layer.appendChild(h);
+    setTimeout(()=>h.remove(), 1800);
+  }
+}
+
+// ─── GÖRSEL EFEKT: dokunma dalgası ───────────────────────────────────────────
+function rippleAt(x, y){
+  if(!settings.effects) return;
+  const layer = getFxLayer();
+  const r = document.createElement('div');
+  r.className = 'ripple';
+  const size = 90;
+  r.style.width = size+'px'; r.style.height = size+'px';
+  r.style.left = x+'px'; r.style.top = y+'px';
+  layer.appendChild(r);
+  setTimeout(()=>r.remove(), 600);
+}
+
+function testEffects(){
+  initAudio();
+  sfx('success'); haptic(25);
+  heartsBurst();
+}
+
+// ─── EXCEL EXPORT (.xls — HTML tablo yöntemi, Türkçe uyumlu) ──────────────────
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function downloadFile(content, filename, mime){
+  try{
+    const blob = new Blob(['\ufeff'+content], {type:mime+';charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click();
+    setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(url); }, 150);
+    sfx('export'); haptic();
+  }catch(e){ alert('İndirme başarısız oldu: '+e.message); }
+}
+
+function xlsWrap(title, tableHtml){
+  return `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="utf-8"><style>
+    table{border-collapse:collapse;font-family:Calibri,Arial,sans-serif}
+    th{background:#2A1444;color:#fff;padding:8px 12px;border:1px solid #999;text-align:left;font-size:13px}
+    td{padding:6px 12px;border:1px solid #ccc;font-size:12px}
+    h2{color:#7A3B8F;font-family:Georgia,serif}
+    .sec{background:#F3E4F0;font-weight:bold}
+    .morn{background:#FCE7F1}.eve{background:#FBF0E2}.nite{background:#E7F4EE}
+  </style></head><body><h2>${esc(title)}</h2>${tableHtml}</body></html>`;
+}
+
+function dayExerciseRows(day){
+  let rows = '';
+  // Sabah
+  rows += `<tr class="sec"><td class="morn" colspan="4">🌅 SABAH CORE RUTİNİ (12-15 dk · her gün)</td></tr>`;
+  MORN.forEach((ex,i)=>{
+    rows += `<tr><td>${i+1}</td><td>${esc(ex.n)}</td><td>${esc((ex.s?ex.s+' · ':'')+ex.r)}</td><td>${esc(ex.eq&&ex.eq!=='—'?ex.eq:'')}</td></tr>`;
+  });
+  // Akşam
+  rows += `<tr class="sec"><td class="eve" colspan="4">🏠 AKŞAM: ${esc(day.eve.title)} (${esc(day.eve.dur)})</td></tr>`;
+  day.eve.exs.forEach((ex,i)=>{
+    rows += `<tr><td>${i+1}</td><td>${esc(ex.n)}</td><td>${esc((ex.s?ex.s+' · ':'')+ex.r)}</td><td>${esc(ex.eq&&ex.eq!=='—'?ex.eq:'')}</td></tr>`;
+  });
+  // Gece
+  rows += `<tr class="sec"><td class="nite" colspan="4">🌙 GECE SKOLYOZ İYİLEŞME RUTİNİ (~15 dk · her gece)</td></tr>`;
+  NITE.forEach((ex,i)=>{
+    rows += `<tr><td>${i+1}</td><td>${esc(ex.n)}</td><td>${esc(ex.r)}</td><td></td></tr>`;
+  });
+  return rows;
+}
+
+function exportTodayExcel(){
+  const today = JS_DAY_MAP[new Date().getDay()];
+  const day = DAYS[today];
+  const table = `<table><tr><th>#</th><th>Egzersiz</th><th>Set / Süre</th><th>Ekipman</th></tr>${dayExerciseRows(day)}</table>`;
+  downloadFile(xlsWrap(`Bugünkü Program — ${day.lbl}`, table), `femfit-bugun-${day.key}.xls`, 'application/vnd.ms-excel');
+}
+
+function exportWeekExcel(){
+  let body = '';
+  DAYS.forEach(day=>{
+    const table = `<table><tr><th colspan="4">${esc(day.emoji+' '+day.lbl+' — '+day.type)}</th></tr>`
+      + `<tr><th>#</th><th>Egzersiz</th><th>Set / Süre</th><th>Ekipman</th></tr>${dayExerciseRows(day)}</table><br>`;
+    body += table;
+  });
+  downloadFile(xlsWrap('Haftalık Program — F🖤', body), 'femfit-haftalik-program.xls', 'application/vnd.ms-excel');
+}
+
+function exportMeasurementsExcel(){
+  const arr = getMeasurements();
+  if(!arr.length){ alert('Dışa aktarılacak ölçüm kaydı yok.'); return; }
+  let rows = arr.map(m=>`<tr><td>${esc(m.date)}</td><td>${esc(m.kg)}</td><td>${esc(m.bel)}</td><td>${esc(m.kalca)}</td><td>${esc(m.kol??'')}</td><td>${esc(m.whr)}</td><td>${esc(m.not||'')}</td></tr>`).join('');
+  const table = `<table><tr><th>Tarih</th><th>Kilo (kg)</th><th>Bel (cm)</th><th>Kalça (cm)</th><th>Kol (cm)</th><th>WHR</th><th>Not</th></tr>${rows}</table>`;
+  downloadFile(xlsWrap('Ölçüm Geçmişi — F🖤', table), 'femfit-olcumler.xls', 'application/vnd.ms-excel');
+}
+
+// ─── YEDEK (JSON) ────────────────────────────────────────────────────────────
+function buildBackup(){
+  return JSON.stringify({
+    app: 'F🖤 Fitness',
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    measurements: getMeasurements(),
+    settings: settings
+  }, null, 2);
+}
+
+function exportBackup(){
+  const stamp = new Date().toISOString().split('T')[0];
+  downloadFile(buildBackup(), `femfit-yedek-${stamp}.json`, 'application/json');
+}
+
+function copyBackup(){
+  const data = buildBackup();
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(data).then(()=>{
+      sfx('export'); haptic(); alert('Yedek panoya kopyalandı. Bir nota yapıştırıp saklayabilirsin.');
+    }).catch(()=>fallbackCopy(data));
+  } else fallbackCopy(data);
+}
+function fallbackCopy(data){
+  const ta = document.createElement('textarea');
+  ta.value = data; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try{ document.execCommand('copy'); alert('Yedek panoya kopyalandı.'); }
+  catch(e){ alert('Kopyalanamadı, lütfen "Yedek İndir"i kullan.'); }
+  document.body.removeChild(ta);
+}
+
+function importBackup(event){
+  const file = event.target.files && event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    try{
+      const data = JSON.parse(e.target.result);
+      if(!data || !Array.isArray(data.measurements)) throw new Error('Geçersiz yedek dosyası');
+      if(!confirm('Bu yedek mevcut ölçümlerinin üzerine yazılacak. Devam edilsin mi?')) { event.target.value=''; return; }
+      saveMeasurements(data.measurements);
+      if(data.settings){ settings = { ...DEFAULT_SETTINGS, ...data.settings }; persistSettings(); applySettings(); }
+      renderHistory();
+      sfx('success'); haptic(20); heartsBurst();
+      alert('Yedek başarıyla geri yüklendi ✓');
+    }catch(err){ alert('Yedek yüklenemedi: '+err.message); }
+    event.target.value='';
+  };
+  reader.readAsText(file);
+}
+
+function resetAllData(){
+  if(!confirm('TÜM ölçümlerin kalıcı olarak silinecek. Bu işlem geri alınamaz. Emin misin?')) return;
+  if(!confirm('Son kez soruyorum: gerçekten tüm verileri sıfırlamak istiyor musun?')) return;
+  localStorage.removeItem('femfit_v2');
+  renderHistory();
+  haptic(30);
+  alert('Tüm ölçüm verileri sıfırlandı.');
+}
+
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -905,9 +1274,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
   renderWeek();
   renderProgram();
   renderHistory();
+  applySettings();
 
   // Nav active state
-  const sections = ['hafta','program','olcum','rehber'];
+  const sections = ['hafta','program','olcum','rehber','ayarlar'];
   const observer = new IntersectionObserver(entries=>{
     entries.forEach(e=>{
       if(e.isIntersecting){
@@ -918,6 +1288,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
     });
   }, {threshold:0.3});
   sections.forEach(s=>{ const el=document.getElementById(s); if(el) observer.observe(el); });
+
+  // İlk kullanıcı hareketinde ses kilidini aç (iOS için şart)
+  const unlock = ()=>{ if(settings.sound) initAudio(); };
+  window.addEventListener('touchend', unlock, {once:true, passive:true});
+  window.addEventListener('click', unlock, {once:true});
+
+  // Dokunma dalgası efekti — tıklanabilir öğelerde
+  document.addEventListener('pointerdown', (e)=>{
+    if(!settings.effects) return;
+    const el = e.target.closest('button, .nav-a, .dcard, .dtab, .exitem, .preset, .setbtn, .toggle');
+    if(el) rippleAt(e.clientX, e.clientY);
+  }, {passive:true});
 });
 
 // ─── PWA: Service Worker Kaydı ────────────────────────────────────────────────
