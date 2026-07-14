@@ -1,6 +1,6 @@
 // F🖤 Fitness — Service Worker
 // Sürüm değiştikçe CACHE adını artır ki güncelleme çeksin.
-const CACHE = 'femfit-v3';
+const CACHE = 'femfit-v4';
 
 const ASSETS = [
   './',
