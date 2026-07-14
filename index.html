@@ -123,7 +123,7 @@ h1 em{font-style:italic;color:var(--rose)}
 
 .tblocks{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px}
 .tblocks.solo{grid-template-columns:1fr}
-.tblock{background:var(--card);border-radius:20px;padding:26px;border:1px solid var(--brd);position:relative;overflow:hidden}
+.tblock{background:var(--card);border-radius:20px;padding:26px;border:1px solid var(--brd);position:relative;overflow:hidden;min-width:0}
 .tblock::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
 .tblock.morn::before{background:linear-gradient(90deg,var(--rose),var(--rose-l))}
 .tblock.eve::before{background:linear-gradient(90deg,var(--gold),#E8C090)}
@@ -181,7 +181,7 @@ h1 em{font-style:italic;color:var(--rose)}
 
 /* MEASUREMENTS */
 .ogrid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.ocard{background:var(--card);border-radius:20px;padding:30px;border:1px solid var(--brd)}
+.ocard{background:var(--card);border-radius:20px;padding:30px;border:1px solid var(--brd);min-width:0}
 .otit{font-family:'Playfair Display',serif;font-size:21px;margin-bottom:22px}
 .fgrp{margin-bottom:15px}
 .flbl{font-size:12.5px;color:var(--txt2);margin-bottom:5px;display:block}
@@ -209,7 +209,7 @@ h1 em{font-style:italic;color:var(--rose)}
 
 /* GUIDE */
 .ggrid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.gcard{background:var(--card);border-radius:20px;padding:26px;border:1px solid var(--brd)}
+.gcard{background:var(--card);border-radius:20px;padding:26px;border:1px solid var(--brd);min-width:0}
 .gcard.full{grid-column:1/-1}
 .gcard.sc{border-color:rgba(126,196,160,.25)}
 .gctit{font-family:'Playfair Display',serif;font-size:19px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:9px}
@@ -230,7 +230,7 @@ h1 em{font-style:italic;color:var(--rose)}
 .rule .rtxt span{font-size:12px;color:var(--txt2);line-height:1.55}
 
 /* PHASE TABLE */
-.ptable-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+.ptable-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
 .ptable{width:100%;border-collapse:collapse;font-size:13.5px}
 .ptable th{text-align:left;padding:10px 14px;background:var(--surf);font-size:11.5px;color:var(--txt2);font-weight:500;font-family:'Space Mono',monospace;letter-spacing:.5px}
 .ptable th:first-child{border-radius:10px 0 0 10px}
@@ -519,7 +519,7 @@ footer span{color:var(--rose)}
     <div class="gcard full">
       <div class="gctit">💡 Program Felsefesi & Odak Bölgeler</div>
       <div class="gcsub">Neden bu program sana özel çalışır</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:14px">
         <div style="padding:18px;background:var(--surf);border-radius:14px">
           <div style="font-size:22px;margin-bottom:8px">🍑</div>
           <div style="font-weight:600;margin-bottom:6px;font-size:14.5px">Kalça Öncelikli</div>
